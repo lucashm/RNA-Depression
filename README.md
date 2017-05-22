@@ -28,3 +28,11 @@ Dificuldade no treinamento: O principal problema diz respeito a lentidão do alg
 
 Learning rate é a taxa de aprendizado que modifica a velocidade em que o parâmetro se aproxima do gradiente
 Lrdecay multiplica o learning rate a cada época
+
+# Questões
+
+## Round One
+- Exaustão fisica?
+- Exaustão Mental?
+- Culpabilidade?
+- Crises de Ansiedade?
