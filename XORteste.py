@@ -50,11 +50,14 @@ net = buildNetwork(ds.indim, 8, ds.outdim, bias=True)
 counter = 0;
 # Os trainers tomam um módulo e um conjunto de dados para treinar o módulo para ajustar os dados no conjunto de dados.
                                                                             #Trocar essas linhas para:
-trainer = BackpropTrainer(net,ds, learningrate=0.01, momentum=0.99, verbose=True) # trainer = BackpropTrainer(net,ds)
-
+trainer = BackpropTrainer(net,ds, learningrate=0.001, momentum=0.99, verbose=True, lrdecay=1.0001) # trainer = BackpropTrainer(net,ds)
+                                                                                #lrdecay -> lrdecay * learningrate
+                                                                                # a cada época
+                                                                                
 for epoch in range(0, 3000):                                        # for epoch in range(0, 10000):
     training = trainer.train();
     counter = counter + 1
+
     if training < 0.001:
         break
 
