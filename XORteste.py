@@ -38,7 +38,7 @@ ds.addSample((1,0,1,1), (1,))
 ds.addSample((1,1,0,0), (0,))
 ds.addSample((1,1,0,1), (0,))
 ds.addSample((1,1,1,0), (1,))
-ds.addSample((1,1,1,1), (0,))
+ds.addSample((1,1,1,1), (1,))
 
 
 
@@ -53,7 +53,7 @@ counter = 0;
 trainer = BackpropTrainer(net,ds, learningrate=0.001, momentum=0.99, verbose=True, lrdecay=1.0001) # trainer = BackpropTrainer(net,ds)
                                                                                 #lrdecay -> lrdecay * learningrate
                                                                                 # a cada época
-                                                                                
+
 for epoch in range(0, 3000):                                        # for epoch in range(0, 10000):
     training = trainer.train();
     counter = counter + 1
@@ -67,6 +67,9 @@ print "Contador de epocas: ", counter
 
 #print "\nWeights: ", net.params
 print "\n\n"
+x = input('Exaustão física?')
+y= input('Exaustão mental?')
+w= input('Culpabilidade?')
+z= input('Crises de ansiedade?')
 
-print '1,0,1,1->', net.activate([1,0,1,1])
-print '1,1,1,1->', net.activate([1,1,1,1])
+print 'Será?', net.activate([x,y,w,z])
