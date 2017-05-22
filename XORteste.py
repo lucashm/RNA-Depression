@@ -14,15 +14,12 @@ from pybrain.tools.shortcuts import buildNetwork
 from pybrain.supervised import BackpropTrainer
 from pybrain.structure import SoftmaxLayer
 
-# Coisas a serem feitas:
-# Descobrir quais sao as variaveis importantes
-# Ligar elas ao conteudo da professora, pra quando ela perguntar e querer que algo seja mudado
-# docs do pyBrain: http://pybrain.org/docs/
-# deem uma pesquisada, se eu tiver feito algo errado, ou se tiver um jeito melhor, a vontade
-
-
+# Cria um conjunto de dados (dataset) para treinamento. São passadas as dimensões
+#   dos vetores e de entrada e do objetivo.
 ds = SupervisedDataSet(4,1) # Suporta entradas quadmensionais e alvos dimensionais
 
+
+# Adiciona as amostras que consiste numa entrada e num objetivo.
 ds.addSample((0,0,0,0), (0,))
 ds.addSample((0,0,0,1), (1,))
 ds.addSample((0,0,1,0), (1,))
@@ -45,23 +42,31 @@ ds.addSample((1,1,1,1), (1,))
 for inpt, target in ds:
     print inpt, target
 
-
-net = buildNetwork(ds.indim, 8, ds.outdim, bias=True)
+# Dataset.indim -> é o tamanho da camada de entrada;
+# Número (8) -> é a quantidade de camadas intermediárias;
+# Dataset.outdim -> é o tamanho da camada de saída;
+# Bias -> adaptação por parte da rede neural ao conhecimento à ela fornecido.
+INTERMEDIATE_LAYERS_QUANTITY = 8
+net = buildNetwork(ds.indim, INTERMEDIATE_LAYERS_QUANTITY, ds.outdim, bias=True)
 counter = 0;
+
 # Os trainers tomam um módulo e um conjunto de dados para treinar o módulo para ajustar os dados no conjunto de dados.
+#  learningrate -> taxa de aprendizado
+#  momentum -> velocidade de treinamento
+# # verbose=True -> indica que deve ser impressas mensagens
                                                                             #Trocar essas linhas para:
 trainer = BackpropTrainer(net,ds, learningrate=0.001, momentum=0.99, verbose=True, lrdecay=1.0001) # trainer = BackpropTrainer(net,ds)
                                                                                 #lrdecay -> lrdecay * learningrate
                                                                                 # a cada época
-
-for epoch in range(0, 3000):                                        # for epoch in range(0, 10000):
+EPOCH_VALUE_MAX = 3000
+for epoch in range(0, EPOCH_VALUE_MAX):                                        # for epoch in range(0, 10000):
     training = trainer.train();
     counter = counter + 1
 
     if training < 0.001:
         break
 
-print "Contador de epocas: ", counter
+print "Contador de épocas: ", counter
 
 
 
