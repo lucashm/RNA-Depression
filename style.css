@@ -2,7 +2,7 @@
 
 
 .floated{
-	border: solid 2px blue;
+	border: solid 2px #ff4a4a;
 }
 .title{ 
 	color: #f2f2f2;
@@ -44,7 +44,7 @@
 }
 
 .questions{
-	border: 2px solid red;
+	border: 2px solid #ff4a4a;
 	width: 33%;
 	float: left;
 }
@@ -60,7 +60,7 @@
 }
 
 .questions2{
-	border: 2px solid red;
+	border: 2px solid #ff4a4a;
 	width: 33%;
 	float: left;
 }
@@ -76,7 +76,7 @@
 }
 
 .questions3{
-	border: 2px solid red;
+	border: 2px solid #ff4a4a;
 	width: 33%;
 	float: left;
 }
@@ -91,10 +91,28 @@
 	font-family: 'Fira Mono', monospace;
 }
 
-# Round III
-# situacional => e
-# distimia => i and j and m
-# psicotica => g and k
-# atipica => i and j and l
-# bipolar => h
-# maior => f and i and j and l
+label{
+	color: #263238;
+	font-size: 22px;
+	font-weight: 600;
+	background: #f2f2f2;
+	padding: 2px;
+}
+
+.btn-container{
+	border: 2px solid #ff4a4a;
+	padding: 10px;
+	text-align: center;
+}
+
+.btn{
+	color: #263238;
+	background: #ff4a4a;
+	font-size: 28px;
+	font-weight: bold;
+	border: none;
+	padding: 2px 12px;
+	border-radius: 2px;
+	box-shadow: 4px 4px #263238;
+	margin: 0 auto;
+}
