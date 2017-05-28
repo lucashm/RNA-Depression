@@ -68,18 +68,8 @@ for epoch in range(0, EPOCH_VALUE_MAX):                                        #
 
 
 print "\n\n"
-a = input('Exaustão física ou mental?')
-b = input('Culpabilidade?')
-c = input('Crises de ansiedade?')
-d = input('Insonia ou sono excessivo?')
 
-ativa = net.activate([a,b,c,d])
-print 'Ativa?', ativa
 
-if ativa <= 1.2 and ativa >= 0.8:
-    entrada_um = 1
-else:
-    entrada_um = 0
 
 print "Processando o próximo passo, aguarde..."
 time.sleep(5.0)
@@ -118,16 +108,9 @@ for epoch2 in range(0, EPOCH_VALUE_MAX):
     if training2 < 0.001:
         break
 
-e = input('Trauma recente?')
-f = input('Pensamentos Suicidas?')
-g = input('Alucinações ou Delirios?')
 
-ativa2 = net2.activate([entrada_um,e,f,g])
-print 'Ativa2?', ativa2
 
-if ativa2 >= 1.8 and ativa2 <= 2.2:
-    print 'Depressão situacional'
-    sys.exit()
+
 
 print "Processando o próximo passo, aguarde..."
 time.sleep(5.0)
@@ -216,11 +199,36 @@ for epoch3 in range(0, EPOCH_VALUE_MAX):
         break
 
 
+a = input('Exaustão física ou mental?')
+b = input('Culpabilidade?')
+c = input('Crises de ansiedade?')
+d = input('Insonia ou sono excessivo?')
+e = input('Trauma recente?')
+f = input('Pensamentos Suicidas?')
+g = input('Alucinações ou Delirios?')
 h = input('Variações de humor constantes?')
 i = input('Desinteresse por quaisquer tipos de atividades?')
 j = input('Medo de ser rejeitado?')
 k = input('Paranoias?')
 l = input('Os sintomas se mantem a mais de um ano?')
+
+
+ativa = net.activate([a,b,c,d])
+print 'Ativa?', ativa
+
+if ativa <= 1.2 and ativa >= 0.8:
+    entrada_um = 1
+else:
+    entrada_um = 0
+
+ativa2 = net2.activate([entrada_um,e,f,g])
+print 'Ativa2?', ativa2
+
+if ativa2 >= 1.8 and ativa2 <= 2.2:
+    print 'Depressão situacional'
+    sys.exit()
+
+
 
 resultado_final = net3.activate([ativa2, h, i, j, k, l])
 print 'resultado final: '
