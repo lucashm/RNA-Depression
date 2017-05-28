@@ -72,9 +72,21 @@ print "Contador de épocas: ", counter
 
 #print "\nWeights: ", net.params
 print "\n\n"
-x = input('Exaustão física?')
-y= input('Exaustão mental?')
-w= input('Culpabilidade?')
-z= input('Crises de ansiedade?')
+a = input('Exaustão física ou mental?')
+b = input('Culpabilidade?')
+c = input('Crises de ansiedade?')
+d = input('Insonia ou sono excessivo?')
 
-print 'Será?', net.activate([x,y,w,z])
+e = input('Trauma recente?')
+f = input('Pensamentos Suicidas?')
+g = input('Alucinações ou Delirios?')
+
+h = input('Variações de humor constantes?')
+i = input('Desinteresse por quaisquer tipos de atividades?')
+j = input('Medo de ser rejeitado?')
+k = input('Paranoias?')
+l = input('Sente-se inutil na maioria das vezes?')
+
+
+
+print 'Será?', net.activate([a,b,c,d])
