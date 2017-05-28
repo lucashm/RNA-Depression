@@ -70,22 +70,34 @@ print "Contador de épocas: ", counter
 
 
 
-#print "\nWeights: ", net.params
+# print "\nWeights: ", net.params
 print "\n\n"
+
+# Round I
+# Precisa de no inimo 2 bits pra definir que tem depressão
 a = input('Exaustão física ou mental?')
 b = input('Culpabilidade?')
 c = input('Crises de ansiedade?')
 d = input('Insonia ou sono excessivo?')
 
+# Round II
 e = input('Trauma recente?')
 f = input('Pensamentos Suicidas?')
 g = input('Alucinações ou Delirios?')
 
+# Round III
+# situacional => e
+# distimia => i and j and m
+# psicotica => g and k
+# atipica => i and j and l
+# bipolar => h
+# maior => f and i and j and l
 h = input('Variações de humor constantes?')
 i = input('Desinteresse por quaisquer tipos de atividades?')
 j = input('Medo de ser rejeitado?')
 k = input('Paranoias?')
 l = input('Sente-se inutil na maioria das vezes?')
+m = input('Os sintomas se mantem a mais de 1 ano?')
 
 
 
