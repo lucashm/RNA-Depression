@@ -2,7 +2,7 @@
 # Aprendizagem Supervisionada padrão - SupervisedDataSet
 #   Conjunto de Entradas que tenha entradas e alvos.
 from pybrain.datasets import SupervisedDataSet
-
+import time
 # Atalho BuildNetwork
 #   Essa chamada retorna uma rede que tem duas entradas, três oculto e um único
 #   neurônio de saída.
@@ -21,19 +21,19 @@ ds = SupervisedDataSet(4,1) # Suporta entradas quadmensionais e alvos dimensiona
 
 # Adiciona as amostras que consiste numa entrada e num objetivo.
 ds.addSample((0,0,0,0), (0,))
-ds.addSample((0,0,0,1), (1,))
-ds.addSample((0,0,1,0), (1,))
-ds.addSample((0,0,1,1), (0,))
+ds.addSample((0,0,0,1), (0,))
+ds.addSample((0,0,1,0), (0,))
+ds.addSample((0,0,1,1), (1,))
 ds.addSample((0,1,0,0), (0,))
-ds.addSample((0,1,0,1), (0,))
+ds.addSample((0,1,0,1), (1,))
 ds.addSample((0,1,1,0), (1,))
-ds.addSample((0,1,1,1), (0,))
+ds.addSample((0,1,1,1), (1,))
 ds.addSample((1,0,0,0), (0,))
-ds.addSample((1,0,0,1), (0,))
+ds.addSample((1,0,0,1), (1,))
 ds.addSample((1,0,1,0), (1,))
 ds.addSample((1,0,1,1), (1,))
-ds.addSample((1,1,0,0), (0,))
-ds.addSample((1,1,0,1), (0,))
+ds.addSample((1,1,0,0), (1,))
+ds.addSample((1,1,0,1), (1,))
 ds.addSample((1,1,1,0), (1,))
 ds.addSample((1,1,1,1), (1,))
 
@@ -54,39 +54,167 @@ counter = 0;
 #  learningrate -> taxa de aprendizado
 #  momentum -> velocidade de treinamento
 # # verbose=True -> indica que deve ser impressas mensagens
-                                                                            #Trocar essas linhas para:
-trainer = BackpropTrainer(net,ds, learningrate=0.001, momentum=0.99, verbose=True, lrdecay=1.0001) # trainer = BackpropTrainer(net,ds)
-                                                                                #lrdecay -> lrdecay * learningrate
-                                                                                # a cada época
+
+trainer = BackpropTrainer(net,ds, learningrate=0.001, momentum=0.99, verbose=True, lrdecay=1.0001)
+errorList = []                                                                                #lrdecay -> lrdecay * learningrate
+
 EPOCH_VALUE_MAX = 3000
 for epoch in range(0, EPOCH_VALUE_MAX):                                        # for epoch in range(0, 10000):
     training = trainer.train();
-    counter = counter + 1
-
+    errorList.insert(epoch, training)
     if training < 0.001:
         break
 
-print "Contador de épocas: ", counter
 
-
-
-#print "\nWeights: ", net.params
 print "\n\n"
 a = input('Exaustão física ou mental?')
 b = input('Culpabilidade?')
 c = input('Crises de ansiedade?')
 d = input('Insonia ou sono excessivo?')
 
+ativa = net.activate([a,b,c,d])
+print 'Ativa?', ativa
+
+if ativa <= 1.2 and ativa >= 0.8:
+    entrada_um = 1
+else:
+    entrada_um = 0
+
+print "Processando o próximo passo, aguarde..."
+time.sleep(5.0)
+##############FIM DO PRIMEIRO ROUND#####################
+
+ds2 = SupervisedDataSet(4,1) # Suporta entradas quadmensionais e alvos dimensionais
+
+
+# Adiciona as amostras que consiste numa entrada e num objetivo.
+ds2.addSample((0,0,0,0), (0,))
+ds2.addSample((0,0,0,1), (0,))
+ds2.addSample((0,0,1,0), (0,))
+ds2.addSample((0,0,1,1), (1,))
+ds2.addSample((0,1,0,0), (0,))
+ds2.addSample((0,1,0,1), (1,))
+ds2.addSample((0,1,1,0), (1,))
+ds2.addSample((0,1,1,1), (1,))
+ds2.addSample((1,0,0,0), (0,))
+ds2.addSample((1,0,0,1), (1,))
+ds2.addSample((1,0,1,0), (1,))
+ds2.addSample((1,0,1,1), (1,))
+ds2.addSample((1,1,0,0), (1,))
+ds2.addSample((1,1,0,1), (1,))
+ds2.addSample((1,1,1,0), (1,))
+ds2.addSample((1,1,1,1), (1,))
+
+INTERMEDIATE_LAYERS_QUANTITY = 8
+net2 = buildNetwork(ds2.indim, INTERMEDIATE_LAYERS_QUANTITY, ds2.outdim, bias=True)
+
+trainer2 = BackpropTrainer(net2,ds2, learningrate=0.001, momentum=0.99, verbose=True, lrdecay=1.0001)
+errorList2 = []
+
+for epoch2 in range(0, EPOCH_VALUE_MAX):
+    training2 = trainer2.train();
+    errorList2.insert(epoch2, training2)
+    if training2 < 0.001:
+        break
+
 e = input('Trauma recente?')
 f = input('Pensamentos Suicidas?')
 g = input('Alucinações ou Delirios?')
 
-h = input('Variações de humor constantes?')
-i = input('Desinteresse por quaisquer tipos de atividades?')
-j = input('Medo de ser rejeitado?')
-k = input('Paranoias?')
-l = input('Sente-se inutil na maioria das vezes?')
+ativa2 = net2.activate([entrada_um,e,f,g])
+print 'Ativa2?', ativa2
+
+print "Processando o próximo passo, aguarde..."
+time.sleep(5.0)
+##################### FIM DO SEGUNDO ROUND ########################
+
+ds3 = SupervisedDataSet(6,1) # Suporta entradas quadmensionais e alvos dimensionais
 
 
+# Adiciona as amostras que consiste numa entrada e num objetivo.
+ds3.addSample((0,0,0,0,0,0), (0,))
+ds3.addSample((0,0,0,0,0,1), (0,))
+ds3.addSample((0,0,0,0,1,0), (0,))
+ds3.addSample((0,0,0,0,1,1), (0,))
+ds3.addSample((0,0,0,1,0,0), (0,))
+ds3.addSample((0,0,0,1,0,1), (0,))
+ds3.addSample((0,0,0,1,1,0), (0,))
+ds3.addSample((0,0,0,1,1,1), (0,))
+ds3.addSample((0,0,1,0,0,0), (0,))
+ds3.addSample((0,0,1,0,0,1), (0,))
+ds3.addSample((0,0,1,0,1,0), (0,))
+ds3.addSample((0,0,1,0,1,1), (0,))
+ds3.addSample((0,0,1,1,0,0), (0,))
+ds3.addSample((0,0,1,1,0,1), (0,))
+ds3.addSample((0,0,1,1,1,0), (0,))
+ds3.addSample((0,0,1,1,1,1), (0,))
+ds3.addSample((0,1,0,0,0,0), (0,))
+ds3.addSample((0,1,0,0,0,1), (0,))
+ds3.addSample((0,1,0,0,1,0), (0,))
+ds3.addSample((0,1,0,0,1,1), (0,))
+ds3.addSample((0,1,0,1,0,0), (0,))
+ds3.addSample((0,1,0,1,0,1), (0,))
+ds3.addSample((0,1,0,1,1,0), (0,))
+ds3.addSample((0,1,0,1,1,1), (0,))
+ds3.addSample((0,1,1,0,0,0), (0,))
+ds3.addSample((0,1,1,0,0,1), (0,))
+ds3.addSample((0,1,1,0,1,0), (0,))
+ds3.addSample((0,1,1,0,1,1), (0,))
+ds3.addSample((0,1,1,1,0,0), (0,))
+ds3.addSample((0,1,1,1,0,1), (0,))
+ds3.addSample((0,1,1,1,1,0), (0,))
+ds3.addSample((0,1,1,1,1,1), (0,))
+ds3.addSample((1,0,0,0,0,0), (0,))
+ds3.addSample((1,0,0,0,0,1), (1,))
+ds3.addSample((1,0,0,0,1,0), (1,))
+ds3.addSample((1,0,0,0,1,1), (1,))
+ds3.addSample((1,0,0,1,0,0), (1,))
+ds3.addSample((1,0,0,1,0,1), (1,))
+ds3.addSample((1,0,0,1,1,0), (1,))
+ds3.addSample((1,0,0,1,1,1), (1,))
+ds3.addSample((1,0,1,0,0,0), (1,))
+ds3.addSample((1,0,1,0,0,1), (1,))
+ds3.addSample((1,0,1,0,1,0), (1,))
+ds3.addSample((1,0,1,0,1,1), (1,))
+ds3.addSample((1,0,1,1,0,0), (1,))
+ds3.addSample((1,0,1,1,0,1), (1,))
+ds3.addSample((1,0,1,1,1,0), (1,))
+ds3.addSample((1,0,1,1,1,1), (1,))
+ds3.addSample((1,1,0,0,0,0), (1,))
+ds3.addSample((1,1,0,0,0,1), (1,))
+ds3.addSample((1,1,0,0,1,0), (1,))
+ds3.addSample((1,1,0,0,1,1), (1,))
+ds3.addSample((1,1,0,1,0,0), (1,))
+ds3.addSample((1,1,0,1,0,1), (1,))
+ds3.addSample((1,1,0,1,1,0), (1,))
+ds3.addSample((1,1,0,1,1,1), (1,))
+ds3.addSample((1,1,1,0,0,0), (1,))
+ds3.addSample((1,1,1,0,0,1), (1,))
+ds3.addSample((1,1,1,0,1,0), (1,))
+ds3.addSample((1,1,1,0,1,1), (1,))
+ds3.addSample((1,1,1,1,0,0), (1,))
+ds3.addSample((1,1,1,1,0,1), (1,))
+ds3.addSample((1,1,1,1,1,0), (1,))
+ds3.addSample((1,1,1,1,1,1), (1,))
 
-print 'Será?', net.activate([a,b,c,d])
+
+INTERMEDIATE_LAYERS_QUANTITY3 = 16
+net3 = buildNetwork(ds3.indim, INTERMEDIATE_LAYERS_QUANTITY3, ds3.outdim, bias=True)
+
+trainer3 = BackpropTrainer(net3,ds3, learningrate=0.001, momentum=0.99, verbose=True, lrdecay=1.0001)
+errorList3 = []
+
+for epoch3 in range(0, EPOCH_VALUE_MAX):
+    training3 = trainer3.train();
+    errorList3.insert(epoch3, training3)
+    if training3 < 0.001:
+        break
+
+print net3.activate([1,1,1,1,1,1])
+print net3.activate([0,1,1,1,1,1])
+
+#h = input('Variações de humor constantes?')
+#i = input('Desinteresse por quaisquer tipos de atividades?')
+#j = input('Medo de ser rejeitado?')
+#k = input('Paranoias?')
+#l = input('Sente-se inutil na maioria das vezes?')
