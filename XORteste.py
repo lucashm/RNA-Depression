@@ -3,6 +3,7 @@
 #   Conjunto de Entradas que tenha entradas e alvos.
 from pybrain.datasets import SupervisedDataSet
 import time
+import sys
 # Atalho BuildNetwork
 #   Essa chamada retorna uma rede que tem duas entradas, três oculto e um único
 #   neurônio de saída.
@@ -100,10 +101,10 @@ ds2.addSample((1,0,0,0), (0,))
 ds2.addSample((1,0,0,1), (1,))
 ds2.addSample((1,0,1,0), (1,))
 ds2.addSample((1,0,1,1), (1,))
-ds2.addSample((1,1,0,0), (1,))
-ds2.addSample((1,1,0,1), (1,))
-ds2.addSample((1,1,1,0), (1,))
-ds2.addSample((1,1,1,1), (1,))
+ds2.addSample((1,1,0,0), (2,)) #
+ds2.addSample((1,1,0,1), (2,)) # -> 2 -> Depressão situacional
+ds2.addSample((1,1,1,0), (2,)) #
+ds2.addSample((1,1,1,1), (2,)) #
 
 INTERMEDIATE_LAYERS_QUANTITY = 8
 net2 = buildNetwork(ds2.indim, INTERMEDIATE_LAYERS_QUANTITY, ds2.outdim, bias=True)
@@ -123,6 +124,10 @@ g = input('Alucinações ou Delirios?')
 
 ativa2 = net2.activate([entrada_um,e,f,g])
 print 'Ativa2?', ativa2
+
+if ativa2 >= 1.8 and ativa2 <= 2.2:
+    print 'Depressão situacional'
+    sys.exit()
 
 print "Processando o próximo passo, aguarde..."
 time.sleep(5.0)
@@ -144,64 +149,64 @@ ds3.addSample((0,0,1,0,0,0), (0,))
 ds3.addSample((0,0,1,0,0,1), (0,))
 ds3.addSample((0,0,1,0,1,0), (0,))
 ds3.addSample((0,0,1,0,1,1), (0,))
-ds3.addSample((0,0,1,1,0,0), (0,))
-ds3.addSample((0,0,1,1,0,1), (0,))
-ds3.addSample((0,0,1,1,1,0), (0,))
-ds3.addSample((0,0,1,1,1,1), (0,))
-ds3.addSample((0,1,0,0,0,0), (0,))
-ds3.addSample((0,1,0,0,0,1), (0,))
-ds3.addSample((0,1,0,0,1,0), (0,))
-ds3.addSample((0,1,0,0,1,1), (0,))
-ds3.addSample((0,1,0,1,0,0), (0,))
-ds3.addSample((0,1,0,1,0,1), (0,))
-ds3.addSample((0,1,0,1,1,0), (0,))
-ds3.addSample((0,1,0,1,1,1), (0,))
-ds3.addSample((0,1,1,0,0,0), (0,))
-ds3.addSample((0,1,1,0,0,1), (0,))
-ds3.addSample((0,1,1,0,1,0), (0,))
-ds3.addSample((0,1,1,0,1,1), (0,))
-ds3.addSample((0,1,1,1,0,0), (0,))
-ds3.addSample((0,1,1,1,0,1), (0,))
-ds3.addSample((0,1,1,1,1,0), (0,))
-ds3.addSample((0,1,1,1,1,1), (0,))
+ds3.addSample((0,0,1,1,0,0), (5,))
+ds3.addSample((0,0,1,1,0,1), (3,))
+ds3.addSample((0,0,1,1,1,0), (5,))
+ds3.addSample((0,0,1,1,1,1), (4,))
+ds3.addSample((0,1,0,0,0,0), (6,))
+ds3.addSample((0,1,0,0,0,1), (6,))
+ds3.addSample((0,1,0,0,1,0), (6,))
+ds3.addSample((0,1,0,0,1,1), (6,))
+ds3.addSample((0,1,0,1,0,0), (6,))
+ds3.addSample((0,1,0,1,0,1), (6,))
+ds3.addSample((0,1,0,1,1,0), (6,))
+ds3.addSample((0,1,0,1,1,1), (6,))
+ds3.addSample((0,1,1,0,0,0), (6,))
+ds3.addSample((0,1,1,0,0,1), (6,))
+ds3.addSample((0,1,1,0,1,0), (6,))
+ds3.addSample((0,1,1,0,1,1), (6,))
+ds3.addSample((0,1,1,1,0,0), (5,))
+ds3.addSample((0,1,1,1,0,1), (3,))
+ds3.addSample((0,1,1,1,1,0), (4,))
+ds3.addSample((0,1,1,1,1,1), (4,))
 ds3.addSample((1,0,0,0,0,0), (0,))
-ds3.addSample((1,0,0,0,0,1), (1,))
-ds3.addSample((1,0,0,0,1,0), (1,))
-ds3.addSample((1,0,0,0,1,1), (1,))
-ds3.addSample((1,0,0,1,0,0), (1,))
-ds3.addSample((1,0,0,1,0,1), (1,))
-ds3.addSample((1,0,0,1,1,0), (1,))
-ds3.addSample((1,0,0,1,1,1), (1,))
-ds3.addSample((1,0,1,0,0,0), (1,))
-ds3.addSample((1,0,1,0,0,1), (1,))
-ds3.addSample((1,0,1,0,1,0), (1,))
-ds3.addSample((1,0,1,0,1,1), (1,))
-ds3.addSample((1,0,1,1,0,0), (1,))
-ds3.addSample((1,0,1,1,0,1), (1,))
-ds3.addSample((1,0,1,1,1,0), (1,))
-ds3.addSample((1,0,1,1,1,1), (1,))
-ds3.addSample((1,1,0,0,0,0), (1,))
-ds3.addSample((1,1,0,0,0,1), (1,))
-ds3.addSample((1,1,0,0,1,0), (1,))
-ds3.addSample((1,1,0,0,1,1), (1,))
-ds3.addSample((1,1,0,1,0,0), (1,))
-ds3.addSample((1,1,0,1,0,1), (1,))
-ds3.addSample((1,1,0,1,1,0), (1,))
-ds3.addSample((1,1,0,1,1,1), (1,))
-ds3.addSample((1,1,1,0,0,0), (1,))
-ds3.addSample((1,1,1,0,0,1), (1,))
-ds3.addSample((1,1,1,0,1,0), (1,))
-ds3.addSample((1,1,1,0,1,1), (1,))
-ds3.addSample((1,1,1,1,0,0), (1,))
-ds3.addSample((1,1,1,1,0,1), (1,))
-ds3.addSample((1,1,1,1,1,0), (1,))
-ds3.addSample((1,1,1,1,1,1), (1,))
+ds3.addSample((1,0,0,0,0,1), (0,))
+ds3.addSample((1,0,0,0,1,0), (4,))
+ds3.addSample((1,0,0,0,1,1), (4,))
+ds3.addSample((1,0,0,1,0,0), (0,))
+ds3.addSample((1,0,0,1,0,1), (0,))
+ds3.addSample((1,0,0,1,1,0), (4,))
+ds3.addSample((1,0,0,1,1,1), (4,))
+ds3.addSample((1,0,1,0,0,0), (0,))
+ds3.addSample((1,0,1,0,0,1), (0,))
+ds3.addSample((1,0,1,0,1,0), (4,))
+ds3.addSample((1,0,1,0,1,1), (4,))
+ds3.addSample((1,0,1,1,0,0), (7,))
+ds3.addSample((1,0,1,1,0,1), (3,))
+ds3.addSample((1,0,1,1,1,0), (4,))
+ds3.addSample((1,0,1,1,1,1), (4,))
+ds3.addSample((1,1,0,0,0,0), (6,))
+ds3.addSample((1,1,0,0,0,1), (6,))
+ds3.addSample((1,1,0,0,1,0), (4,))
+ds3.addSample((1,1,0,0,1,1), (4,))
+ds3.addSample((1,1,0,1,0,0), (6,))
+ds3.addSample((1,1,0,1,0,1), (6,))
+ds3.addSample((1,1,0,1,1,0), (4,))
+ds3.addSample((1,1,0,1,1,1), (4,))
+ds3.addSample((1,1,1,0,0,0), (6,))
+ds3.addSample((1,1,1,0,0,1), (6,))
+ds3.addSample((1,1,1,0,1,0), (4,))
+ds3.addSample((1,1,1,0,1,1), (4,))
+ds3.addSample((1,1,1,1,0,0), (6,))
+ds3.addSample((1,1,1,1,0,1), (3,))
+ds3.addSample((1,1,1,1,1,0), (4,))
+ds3.addSample((1,1,1,1,1,1), (4,))
 
 
-INTERMEDIATE_LAYERS_QUANTITY3 = 16
+INTERMEDIATE_LAYERS_QUANTITY3 = 48
 net3 = buildNetwork(ds3.indim, INTERMEDIATE_LAYERS_QUANTITY3, ds3.outdim, bias=True)
 
-trainer3 = BackpropTrainer(net3,ds3, learningrate=0.001, momentum=0.99, verbose=True, lrdecay=1.0001)
+trainer3 = BackpropTrainer(net3,ds3, learningrate=0.001, momentum=0.99, verbose=True, lrdecay=1.00001)
 errorList3 = []
 
 for epoch3 in range(0, EPOCH_VALUE_MAX):
@@ -210,19 +215,42 @@ for epoch3 in range(0, EPOCH_VALUE_MAX):
     if training3 < 0.001:
         break
 
-print net3.activate([1,1,1,1,1,1])
-print net3.activate([0,1,1,1,1,1])
 
-#h = input('Variações de humor constantes?')
-#i = input('Desinteresse por quaisquer tipos de atividades?')
-#j = input('Medo de ser rejeitado?')
-#k = input('Paranoias?')
-#l = input('Sente-se inutil na maioria das vezes?')
+h = input('Variações de humor constantes?')
+i = input('Desinteresse por quaisquer tipos de atividades?')
+j = input('Medo de ser rejeitado?')
+k = input('Paranoias?')
+l = input('Os sintomas se mantem a mais de um ano?')
+
+resultado_final = net3.activate([ativa2, h, i, j, k, l])
+print 'resultado final: '
+if resultado_final >= 2.8 and resultado_final <= 3.2:
+    print 'Depressão distímica'
+elif resultado_final >= 3.8 and resultado_final <= 4.2:
+    print 'depressao psicotica'
+elif resultado_final >= 4.8 and resultado_final <= 5.2:
+    print 'depressao atipica'
+elif resultado_final >= 5.8 and resultado_final <= 6.2:
+    print 'depressao bipolar'
+elif resultado_final >= 6.8 and resultado_final <= 7.2:
+    print 'depressao maior'
+else:
+    print 'nenhuma depressão identificada'
+
+print '\n\n'
+print '##########TESTES############'
+print '\n'
+print  'distimia    #3 -> ', net3.activate([1,0,1,1,0,1])
+print  'psicotica   #4 -> ', net3.activate([1,1,0,0,1,1])
+print  'atipica     #5 -> ', net3.activate([0,0,1,1,0,0])
+print  'bipolar     #6 -> ', net3.activate([1,1,1,0,0,0])
+print  'maior       #7 -> ', net3.activate([1,0,1,1,0,0])
+print 'nenhuma      #0 -> ', net3.activate([0,0,1,0,1,1])
 
 # Round III
-# situacional => e
-# distimia => i and j and m
-# psicotica => g and k
-# atipica => i and j and l
-# bipolar => h
-# maior => f and i and j and l
+# situacional => e          #2
+# distimia => i and j and l #3
+# psicotica => g and k      #4
+# atipica => i and j        #5
+# bipolar => h              #6
+# maior => f and i and j    #7
