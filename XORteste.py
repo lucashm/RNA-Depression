@@ -1,6 +1,7 @@
 #!-*- coding: utf8 -*-
 # Aprendizagem Supervisionada padrão - SupervisedDataSet
 #   Conjunto de Entradas que tenha entradas e alvos.
+
 from pybrain.datasets import SupervisedDataSet
 import time
 import sys
@@ -14,6 +15,7 @@ from pybrain.tools.shortcuts import buildNetwork
 
 from pybrain.supervised import BackpropTrainer
 from pybrain.structure import SoftmaxLayer
+import matplotlib.pyplot as plt
 
 # Cria um conjunto de dados (dataset) para treinamento. São passadas as dimensões
 #   dos vetores e de entrada e do objetivo.
@@ -109,7 +111,7 @@ for epoch2 in range(0, EPOCH_VALUE_MAX):
         break
 
 
-
+print "\n\n"
 
 
 print "Processando o próximo passo, aguarde..."
@@ -197,7 +199,16 @@ for epoch3 in range(0, EPOCH_VALUE_MAX):
     errorList3.insert(epoch3, training3)
     if training3 < 0.001:
         break
-
+plt.figure(1)
+plt.subplot(111)
+plt.plot(errorList,'g-')
+plt.figure(2)
+plt.subplot(111)
+plt.plot(errorList2,'r-')
+plt.figure(3)
+plt.subplot(111)
+plt.plot(errorList3,'c-')
+plt.show()
 
 a = input('Exaustão física ou mental?')
 b = input('Culpabilidade?')
