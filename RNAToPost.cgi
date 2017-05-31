@@ -1,28 +1,16 @@
-#!-*- coding: utf8 -*-
-# Aprendizagem Supervisionada padrão - SupervisedDataSet
-#   Conjunto de Entradas que tenha entradas e alvos.
-
+#!/usr/bin/python2.7
+#!home/ann/anaconda2/lib/python2.7
 from pybrain.datasets import SupervisedDataSet
 import time
 import sys
-# Atalho BuildNetwork
-#   Essa chamada retorna uma rede que tem duas entradas, três oculto e um único
-#   neurônio de saída.
-#   Na camada oculta, é construída a função Sigmoide por padrão
 from pybrain.tools.shortcuts import buildNetwork
-# Para ajustar os parâmetros dos módulos na aprendizagem supervisionada usando
-# backpropagation.
-
 from pybrain.supervised import BackpropTrainer
 from pybrain.structure import SoftmaxLayer
-import matplotlib.pyplot as plt
-
-# Cria um conjunto de dados (dataset) para treinamento. São passadas as dimensões
-#   dos vetores e de entrada e do objetivo.
-ds = SupervisedDataSet(4,1) # Suporta entradas quadmensionais e alvos dimensionais
 
 
-# Adiciona as amostras que consiste numa entrada e num objetivo.
+
+ds = SupervisedDataSet(4,1)
+
 ds.addSample((0,0,0,0), (0,))
 ds.addSample((0,0,0,1), (0,))
 ds.addSample((0,0,1,0), (0,))
@@ -40,47 +28,22 @@ ds.addSample((1,1,0,1), (1,))
 ds.addSample((1,1,1,0), (1,))
 ds.addSample((1,1,1,1), (1,))
 
-
-
-for inpt, target in ds:
-    print inpt, target
-
-# Dataset.indim -> é o tamanho da camada de entrada;
-# Número (8) -> é a quantidade de camadas intermediárias;
-# Dataset.outdim -> é o tamanho da camada de saída;
-# Bias -> adaptação por parte da rede neural ao conhecimento à ela fornecido.
 INTERMEDIATE_LAYERS_QUANTITY = 8
 net = buildNetwork(ds.indim, INTERMEDIATE_LAYERS_QUANTITY, ds.outdim, bias=True)
 counter = 0;
 
-# Os trainers tomam um módulo e um conjunto de dados para treinar o módulo para ajustar os dados no conjunto de dados.
-#  learningrate -> taxa de aprendizado
-#  momentum -> velocidade de treinamento
-# # verbose=True -> indica que deve ser impressas mensagens
-
-trainer = BackpropTrainer(net,ds, learningrate=0.001, momentum=0.99, verbose=True, lrdecay=1.0001)
-errorList = []                                                                                #lrdecay -> lrdecay * learningrate
+trainer = BackpropTrainer(net,ds, learningrate=0.001, momentum=0.99, verbose=False, lrdecay=1.0001)
+errorList = []
 
 EPOCH_VALUE_MAX = 3000
-for epoch in range(0, EPOCH_VALUE_MAX):                                        # for epoch in range(0, 10000):
+for epoch in range(0, EPOCH_VALUE_MAX):
     training = trainer.train();
     errorList.insert(epoch, training)
     if training < 0.001:
         break
 
-
-print "\n\n"
-
-
-
-print "Processando o próximo passo, aguarde..."
-time.sleep(5.0)
-##############FIM DO PRIMEIRO ROUND#####################
-
 ds2 = SupervisedDataSet(4,1) # Suporta entradas quadmensionais e alvos dimensionais
 
-
-# Adiciona as amostras que consiste numa entrada e num objetivo.
 ds2.addSample((0,0,0,0), (0,))
 ds2.addSample((0,0,0,1), (0,))
 ds2.addSample((0,0,1,0), (0,))
@@ -94,14 +57,14 @@ ds2.addSample((1,0,0,1), (1,))
 ds2.addSample((1,0,1,0), (1,))
 ds2.addSample((1,0,1,1), (1,))
 ds2.addSample((1,1,0,0), (2,)) #
-ds2.addSample((1,1,0,1), (2,)) # -> 2 -> Depressão situacional
+ds2.addSample((1,1,0,1), (2,)) # -> 2 -> Depressao situacional
 ds2.addSample((1,1,1,0), (2,)) #
 ds2.addSample((1,1,1,1), (2,)) #
 
 INTERMEDIATE_LAYERS_QUANTITY = 8
 net2 = buildNetwork(ds2.indim, INTERMEDIATE_LAYERS_QUANTITY, ds2.outdim, bias=True)
 
-trainer2 = BackpropTrainer(net2,ds2, learningrate=0.001, momentum=0.99, verbose=True, lrdecay=1.0001)
+trainer2 = BackpropTrainer(net2,ds2, learningrate=0.001, momentum=0.99, verbose=False, lrdecay=1.0001)
 errorList2 = []
 
 for epoch2 in range(0, EPOCH_VALUE_MAX):
@@ -111,17 +74,8 @@ for epoch2 in range(0, EPOCH_VALUE_MAX):
         break
 
 
-print "\n\n"
-
-
-print "Processando o próximo passo, aguarde..."
-time.sleep(5.0)
-##################### FIM DO SEGUNDO ROUND ########################
-
 ds3 = SupervisedDataSet(6,1) # Suporta entradas quadmensionais e alvos dimensionais
 
-
-# Adiciona as amostras que consiste numa entrada e num objetivo.
 ds3.addSample((0,0,0,0,0,0), (0,))
 ds3.addSample((0,0,0,0,0,1), (0,))
 ds3.addSample((0,0,0,0,1,0), (0,))
@@ -191,7 +145,7 @@ ds3.addSample((1,1,1,1,1,1), (4,))
 INTERMEDIATE_LAYERS_QUANTITY3 = 48
 net3 = buildNetwork(ds3.indim, INTERMEDIATE_LAYERS_QUANTITY3, ds3.outdim, bias=True)
 
-trainer3 = BackpropTrainer(net3,ds3, learningrate=0.001, momentum=0.99, verbose=True, lrdecay=1.00001)
+trainer3 = BackpropTrainer(net3,ds3, learningrate=0.001, momentum=0.99, verbose=False, lrdecay=1.00001)
 errorList3 = []
 
 for epoch3 in range(0, EPOCH_VALUE_MAX):
@@ -199,33 +153,47 @@ for epoch3 in range(0, EPOCH_VALUE_MAX):
     errorList3.insert(epoch3, training3)
     if training3 < 0.001:
         break
-plt.figure(1)
-plt.subplot(111)
-plt.plot(errorList,'g-')
-plt.figure(2)
-plt.subplot(111)
-plt.plot(errorList2,'r-')
-plt.figure(3)
-plt.subplot(111)
-plt.plot(errorList3,'c-')
-plt.show()
 
-a = input('Exaustão física ou mental?')
-b = input('Culpabilidade?')
-c = input('Crises de ansiedade?')
-d = input('Insonia ou sono excessivo?')
-e = input('Trauma recente?')
-f = input('Pensamentos Suicidas?')
-g = input('Alucinações ou Delirios?')
-h = input('Variações de humor constantes?')
-i = input('Desinteresse por quaisquer tipos de atividades?')
-j = input('Medo de ser rejeitado?')
-k = input('Paranoias?')
-l = input('Os sintomas se mantem a mais de um ano?')
 
+#######################################################################################
+import cgi
+import cgitb
+cgitb.enable()
+
+a = {0,1,2}
+form = cgi.FieldStorage()
+
+questions = []
+
+questions.append(form.getvalue("q1"))
+questions.append(form.getvalue("q2"))
+questions.append(form.getvalue("q3"))
+questions.append(form.getvalue("q4"))
+questions.append(form.getvalue("q5"))
+questions.append(form.getvalue("q6"))
+questions.append(form.getvalue("q7"))
+questions.append(form.getvalue("q8"))
+questions.append(form.getvalue("q9"))
+questions.append(form.getvalue("q10"))
+questions.append(form.getvalue("q11"))
+questions.append(form.getvalue("q12"))
+
+a = questions[0]
+b = questions[1]
+c = questions[2]
+d = questions[3]
+e = questions[4]
+f = questions[5]
+g = questions[6]
+h = questions[7]
+i = questions[8]
+j = questions[9]
+k = questions[10]
+l = questions[11]
 
 ativa = net.activate([a,b,c,d])
-#print 'Ativa?', ativa
+
+ativa = net.activate([a,b,c,d])
 
 if ativa <= 1.2 and ativa >= 0.8:
     entrada_um = 1
@@ -233,43 +201,38 @@ else:
     entrada_um = 0
 
 ativa2 = net2.activate([entrada_um,e,f,g])
-#print 'Ativa2?', ativa2
-
-if ativa2 >= 1.8 and ativa2 <= 2.2:
-    print 'Depressão situacional'
-    sys.exit()
-
-
 
 resultado_final = net3.activate([ativa2, h, i, j, k, l])
-print 'resultado final: '
-if resultado_final >= 2.8 and resultado_final <= 3.2:
-    print 'Depressão distímica'
+print_final = 'teste'
+
+if ativa2 >= 1.8 and ativa2 <= 2.2:
+    print_final = 'Depressao situacional'
+elif resultado_final >= 2.8 and resultado_final <= 3.2:
+    print_final = 'Depressao distimica'
 elif resultado_final >= 3.8 and resultado_final <= 4.2:
-    print 'depressao psicotica'
+    print_final = 'Depressao psicotica'
 elif resultado_final >= 4.8 and resultado_final <= 5.2:
-    print 'depressao atipica'
+    print_final = 'Depressao atipica'
 elif resultado_final >= 5.8 and resultado_final <= 6.2:
-    print 'depressao bipolar'
+    print_final = 'Depressao bipolar'
 elif resultado_final >= 6.8 and resultado_final <= 7.2:
-    print 'depressao maior'
+    print_final = 'Depressao maior'
 else:
-    print 'nenhuma depressão identificada'
+    print_final = "Nenhuma depressao encontrada"
 
-#print '\n\n'
-#print '##########TESTES############'
-#print '\n'
-#print  'distimia    #3 -> ', net3.activate([1,0,1,1,0,1])
-#print  'psicotica   #4 -> ', net3.activate([1,1,0,0,1,1])
-#print  'atipica     #5 -> ', net3.activate([0,0,1,1,0,0])
-#print  'bipolar     #6 -> ', net3.activate([1,1,1,0,0,0])
-#print  'maior       #7 -> ', net3.activate([1,0,1,1,0,0])
-#print 'nenhuma      #0 -> ', net3.activate([0,0,1,0,1,1])
 
-# Round III
-# situacional => e          #2
-# distimia => i and j and l #3
-# psicotica => g and k      #4
-# atipica => i and j        #5
-# bipolar => h              #6
-# maior => f and i and j    #7
+print 'Content-type: text/html\r\n\r'
+print '<meta charset="utf-8"/>'
+print '<html>'
+print '<form action="database.py" method="post">' ################################
+print '<h1>Respostas: </h1>'
+print '<h1>{0}</h1>'.format(questions)
+print '<input type="hidden" name="questions" value="{0}">'.format(questions)
+print '<h1>Resultado final:</h1>'
+print '<h1>{0}</h1>'.format(print_final)
+print '<input type="hidden" name="print_final" value="{0}">'.format(print_final)
+print '<label>Seu nome: </label>'
+print '<input type="text" name="nome">'
+print '<input type="submit" value="Inserir no banco de dados">'
+print '</form>' ##################################################################
+print '</html>'
