@@ -228,7 +228,7 @@ print '<form action="database.py" method="post">' ##############################
 print '<h1>Respostas: </h1>'
 print '<h1>{0}</h1>'.format(questions)
 print '<input type="hidden" name="questions" value="{0}">'.format(questions)
-print '<h1>Resultado final:</h1>'
+print '<h1 style ="color:red;">Resultado final:</h1>'
 print '<h1>{0}</h1>'.format(print_final)
 print '<input type="hidden" name="print_final" value="{0}">'.format(print_final)
 print '<label>Seu nome: </label>'
